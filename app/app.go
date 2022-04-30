@@ -10,11 +10,12 @@ import (
 )
 
 func Start() {
-	wordlistRepo, err := domain.NewWordlistRepositoryFile("wordlist.json")
+	wordlistRepo, err := domain.NewWordlistRepositoryFromFile("wordlist.json")
 	if err != nil {
 		log.Fatalln(err)
 	}
-	//wordlistRepo := &domain.WordlistRepositoryFile{Pointer: 0, Words: []string{"abreact", "abreacted", "abreacting", "abreaction", "abreactions", "abreacts", "abreast", "abri", "abridge", "abridged", "abridgement", "abridgements", "abridger", "abridgers", "abridges", "abridging", "abridgment", "abridgments", "abris", "abroach", "abroad", "abrogable", "abrogate", "abrogated", "abrogates", "abrogating", "abrogation", "abrogations", "abrogator", "abrogators", "abrosia", "abrosias", "abrupt", "abrupter", "abruptest", "abruption", "abruptions", "abruptly", "abruptness", "abruptnesses", "abs", "abscess", "abscessed", "abscesses", "abscessing", "abscise", "abscised", "abscises", "abscisin", "abscising", "abscisins", "abscissa"}}
+	//wordlistRepo := &domain.WordlistRepositoryStub{Pointer: 0, Words: []string{"abreact", "abreacted", "abreacting", "abreaction", "abreactions", "abreacts", "abreast", "abri", "abridge", "abridged", "abridgement", "abridgements", "abridger", "abridgers", "abridges", "abridging", "abridgment", "abridgments", "abris", "abroach", "abroad", "abrogable", "abrogate", "abrogated", "abrogates", "abrogating", "abrogation", "abrogations", "abrogator", "abrogators", "abrosia", "abrosias", "abrupt", "abrupter", "abruptest", "abruption", "abruptions", "abruptly", "abruptness", "abruptnesses", "abs", "abscess", "abscessed", "abscesses", "abscessing", "abscise", "abscised", "abscises", "abscisin", "abscising", "abscisins", "abscissa"}}
+
 	wordlistService := service.NewDefaultWordlistService(wordlistRepo)
 
 	wh := WordlistHandler{service: wordlistService}

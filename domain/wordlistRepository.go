@@ -2,7 +2,6 @@ package domain
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"math/rand"
 	"os"
@@ -14,12 +13,12 @@ type WordlistRepository interface {
 	Shuffle()
 }
 
-type WordlistRepositoryFile struct {
+type WordlistRepositoryStub struct {
 	Pointer int
 	Words   []string
 }
 
-func (r *WordlistRepositoryFile) GetWords(limit int) []string {
+func (r *WordlistRepositoryStub) GetWords(limit int) []string {
 	var words []string
 	if r.Pointer+limit > len(r.Words) {
 		words = r.Words[r.Pointer:len(r.Words)]
@@ -29,28 +28,24 @@ func (r *WordlistRepositoryFile) GetWords(limit int) []string {
 		words = r.Words[r.Pointer : r.Pointer+limit]
 	}
 	r.Pointer = r.Pointer + limit
-	fmt.Println(r.Pointer, limit)
+	//fmt.Println(r.Pointer, limit)
 	if r.Pointer >= len(r.Words)-limit {
 		go r.Shuffle()
 	}
 	return words
 }
 
-func (r *WordlistRepositoryFile) Shuffle() {
+func (r *WordlistRepositoryStub) Shuffle() {
 	start := time.Now()
 	a := make([]string, len(r.Words))
 	copy(a, r.Words)
-	//rand.Seed(time.Now().UnixNano())
-	//rand.Shuffle(len(a), func(i, j int) { a[i], a[j] = a[j], a[i] })
-	for i := range a {
-		j := rand.Intn(i + 1)
-		a[i], a[j] = a[j], a[i]
-	}
+	rand.Seed(time.Now().UnixNano())
+	rand.Shuffle(len(a), func(i, j int) { a[i], a[j] = a[j], a[i] })
 	r.Words = a
 	log.Printf("Took %s seconds\n", time.Since(start))
 }
 
-func NewWordlistRepositoryFile(filename string) (*WordlistRepositoryFile, error) {
+func NewWordlistRepositoryFromFile(filename string) (*WordlistRepositoryStub, error) {
 	var wordlist map[string][]string
 	var bytes []byte
 	var err error
@@ -63,11 +58,11 @@ func NewWordlistRepositoryFile(filename string) (*WordlistRepositoryFile, error)
 		return nil, err
 	}
 
-	r := WordlistRepositoryFile{
+	r := WordlistRepositoryStub{
 		Pointer: 0,
 		Words:   wordlist["words"],
 	}
-	//r.Shuffle()
+	r.Shuffle()
 	return &r, nil
 
 }
