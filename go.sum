@@ -1,0 +1,4 @@
+github.com/Nishith-Savla/golang-banking-lib v1.0.2 h1:4J51BjXjDS+qtuqDHQofod16wZLljdo5xBU5fOGeqsY=
+github.com/Nishith-Savla/golang-banking-lib v1.0.2/go.mod h1:q3J098J8d6kZ2BwgBz2xFUE9a+AAHyJUIv5HSlk5B4M=
+github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
+github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
