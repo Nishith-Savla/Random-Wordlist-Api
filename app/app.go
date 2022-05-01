@@ -1,8 +1,11 @@
 package app
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"strings"
 
 	"github.com/Nishith-Savla/Random-Wordlist-Api/domain"
 	"github.com/Nishith-Savla/Random-Wordlist-Api/service"
@@ -22,7 +25,14 @@ func Start() {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/words", wh.getWords).Queries("limit", "{limit:(?:10|20|50|100|200|500|1000)}").Methods("GET")
+	allowedLimits := []uint16{10, 20, 50, 100, 200, 500}
+	allowedLimitsString := strings.Trim(strings.Join(strings.Fields(fmt.Sprint(allowedLimits)), "|"), "[]")
+	limitQueryParam := fmt.Sprintf("{limit:(?:%v)}", allowedLimitsString)
+
+	r.Use(authorizationHandler(os.Getenv("API_KEY")))
+	r.HandleFunc("/words", wh.getWords).
+		Queries("limit", limitQueryParam).
+		Methods("GET")
 
 	log.Fatalln(http.ListenAndServe(":80", r))
 }

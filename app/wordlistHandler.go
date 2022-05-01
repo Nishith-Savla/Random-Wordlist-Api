@@ -17,12 +17,7 @@ type WordlistHandler struct {
 func (h WordlistHandler) getWords(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
-	var limit int
-	var err error
-	if limit, err = strconv.Atoi(vars["limit"]); err != nil {
-		writeJSONResponse(w, 400, err)
-		return
-	}
+	limit, _ := strconv.Atoi(vars["limit"])
 
 	words := h.service.GetWords(limit)
 
