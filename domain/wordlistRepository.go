@@ -46,7 +46,7 @@ func (r *WordlistRepositoryStub) Shuffle() {
 }
 
 func NewWordlistRepositoryFromFile(filename string) (*WordlistRepositoryStub, error) {
-	var wordlist map[string][]string
+	var wordlist []string
 	var bytes []byte
 	var err error
 
@@ -60,7 +60,7 @@ func NewWordlistRepositoryFromFile(filename string) (*WordlistRepositoryStub, er
 
 	r := WordlistRepositoryStub{
 		Pointer: 0,
-		Words:   wordlist["words"],
+		Words:   wordlist,
 	}
 	r.Shuffle()
 	return &r, nil

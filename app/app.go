@@ -22,7 +22,7 @@ func Start() {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/words", wh.getWords).Queries("limit", "{limit:(?:10|20|50|100|200|500|1000|50000)}").Methods("GET")
+	r.HandleFunc("/words", wh.getWords).Queries("limit", "{limit:(?:10|20|50|100|200|500|1000)}").Methods("GET")
 
 	log.Fatalln(http.ListenAndServe(":80", r))
 }
