@@ -34,5 +34,10 @@ func Start() {
 		Queries("limit", limitQueryParam).
 		Methods("GET")
 
-	log.Fatalln(http.ListenAndServe(":80", r))
+	var port string
+	if port = os.Getenv("PORT"); port == "" {
+		port = "8080"
+	}
+	port = fmt.Sprintf(":%s", port)
+	log.Fatalln(http.ListenAndServe(port, r))
 }
