@@ -25,11 +25,11 @@ func Start() {
 
 	r := mux.NewRouter()
 
-	allowedLimits := []uint16{10, 20, 50, 100, 200, 500}
+	allowedLimits := []uint16{10, 20, 50, 100, 200}
 	allowedLimitsString := strings.Trim(strings.Join(strings.Fields(fmt.Sprint(allowedLimits)), "|"), "[]")
 	limitQueryParam := fmt.Sprintf("{limit:(?:%v)}", allowedLimitsString)
 
-	r.Use(authorizationHandler(os.Getenv("API_KEY")))
+	r.Use(limit, authorizationHandler(os.Getenv("API_KEY")))
 	r.HandleFunc("/words", wh.getWords).
 		Queries("limit", limitQueryParam).
 		Methods("GET")
