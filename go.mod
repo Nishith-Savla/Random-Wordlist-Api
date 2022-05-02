@@ -1,5 +1,6 @@
 module github.com/Nishith-Savla/Random-Wordlist-Api
 
+// +heroku goVersion go1.18
 go 1.18
 
 require (
