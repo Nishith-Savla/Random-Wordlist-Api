@@ -6,3 +6,6 @@ tmp/
 
 # Env configs
 *.env*
+
+# bin folder for executables
+bin/

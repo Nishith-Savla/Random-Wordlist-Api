@@ -1,0 +1,1 @@
+web: bin/Random-Wordlist-Api
