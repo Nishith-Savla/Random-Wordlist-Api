@@ -39,5 +39,6 @@ func Start() {
 		port = "8080"
 	}
 	port = fmt.Sprintf(":%s", port)
+
 	log.Fatalln(http.ListenAndServe(port, r))
 }
