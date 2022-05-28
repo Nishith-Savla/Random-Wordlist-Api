@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	if os.Getenv("APP_ENV") == "Development" {
+	if os.Getenv("APP_ENV") != "Production" {
 		if err := godotenv.Load(); err != nil {
 			log.Panic(err)
 		}
